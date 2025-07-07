@@ -17,20 +17,20 @@ func Login(cReq *fiber.Ctx) error {
 	var reqBody validators.LoginValidator
 
 	if err := cReq.BodyParser(&reqBody); err != nil {
-		return fiber.NewError(fiber.StatusBadRequest, "Invalid request body")
+		return utils.ResponseError(cReq, fiber.StatusBadRequest, "Bad request", nil)
 	}
 	if err := validators.Validate.Struct(reqBody); err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, "Invalid request data")
 	}
 
 	userCollection := configs.GetCollection("users")
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	var userData bson.M
 	err := userCollection.FindOne(ctx, bson.M{"email": reqBody.Email}).Decode(&userData)
 	if err != nil {
-		return fiber.NewError(fiber.StatusNotFound, "User not found")
+		return utils.ResponseError(cReq, fiber.StatusUnauthorized, "Invalid email or password", nil)
 	}
 
 	userID := userData["_id"].(primitive.ObjectID)

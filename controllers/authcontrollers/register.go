@@ -45,7 +45,7 @@ func RegisterUser(cReq *fiber.Ctx) error {
 	hashPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 	if err != nil {
 		log.Println("Error hashing password:", err)
-		return utils.ResponseError(cReq, fiber.StatusInternalServerError, "Failed to hash password", nil)
+		return utils.ResponseError(cReq, fiber.StatusInternalServerError, "Failed save password", nil)
 	}
 
 	newUser := models.User{
@@ -64,7 +64,6 @@ func RegisterUser(cReq *fiber.Ctx) error {
 		log.Println("Error inserting new user:", err)
 		return utils.ResponseError(cReq, fiber.StatusInternalServerError, "Failed to create user", nil)
 	}
-
 	newUser.ID = result.InsertedID.(primitive.ObjectID)
 
 	token, err := utils.GenerateToken(newUser.ID.Hex(), newUser.Email)
