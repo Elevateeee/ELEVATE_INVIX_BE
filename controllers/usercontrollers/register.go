@@ -1,4 +1,4 @@
-package authcontrollers
+package usercontrollers
 
 import (
 	"ELEVATE_INVIX_BE/configs"

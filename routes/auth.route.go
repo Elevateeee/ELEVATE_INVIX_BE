@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"ELEVATE_INVIX_BE/controllers/authcontrollers"
+	"ELEVATE_INVIX_BE/controllers/usercontrollers"
 	"ELEVATE_INVIX_BE/middlewares"
 
 	"github.com/gofiber/fiber/v2"
@@ -11,11 +11,11 @@ import (
 func AuthRoutes(app fiber.Router) {
 	auth := app.Group("/auth")
 
-	auth.Post("/register", authcontrollers.RegisterUser)
-	auth.Post("/verify-email", authcontrollers.VerifyEmail)
-	auth.Post("/resend-verification", authcontrollers.ResendVerification)
-	auth.Post("/login", authcontrollers.Login)
-	auth.Post("/logout",middlewares.UserProtect ,authcontrollers.Logout)
+	auth.Post("/register", usercontrollers.RegisterUser)
+	auth.Post("/verify-email", usercontrollers.VerifyEmail)
+	auth.Post("/resend-verification", usercontrollers.ResendVerification)
+	auth.Post("/login", usercontrollers.Login)
+	auth.Post("/logout",middlewares.UserProtect ,usercontrollers.Logout)
 }
 
 

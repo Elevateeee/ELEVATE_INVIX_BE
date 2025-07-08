@@ -1,4 +1,4 @@
-package authcontrollers
+package usercontrollers
 
 import (
 	"ELEVATE_INVIX_BE/configs"
@@ -20,7 +20,7 @@ func Login(cReq *fiber.Ctx) error {
 		return utils.ResponseError(cReq, fiber.StatusBadRequest, "Bad request", nil)
 	}
 	if err := validators.Validate.Struct(reqBody); err != nil {
-		return fiber.NewError(fiber.StatusBadRequest, "Invalid request data")
+		return utils.ResponseError(cReq, fiber.StatusBadRequest, "Invalid request data", nil)
 	}
 
 	userCollection := configs.GetCollection("users")

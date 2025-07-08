@@ -36,6 +36,7 @@ func main() {
 	api := app.Group("/api")
 	routes.AuthRoutes(api)	
 	routes.UserRouter(api)
+	routes.AdminRouter(api)
 
 	port := os.Getenv("PORT")
 	if port == "" {
