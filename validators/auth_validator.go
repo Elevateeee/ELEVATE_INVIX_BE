@@ -1,12 +1,5 @@
 package validators
 
-import (
-	"github.com/go-playground/validator/v10"
-)
-
-
-var Validate = validator.New()
-
 type RegisterValidator struct{
 	Username string `json:"username" validate:"required,min=4,max=50"`
 	Email    string `json:"email" validate:"required,email"`
